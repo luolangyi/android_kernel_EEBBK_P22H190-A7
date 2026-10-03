@@ -4969,3 +4969,9 @@ CONFIG_SBITMAP=y
 # KUnit support
 #
 # CONFIG_TEST is not set
+# ARM GPU Configuration (added to satisfy repo midgard build)
+CONFIG_MALI_MIDGARD=m
+CONFIG_MALI_DEVFREQ=y
+CONFIG_MALI_DMA_FENCE=y
+CONFIG_MALI_PLATFORM_NAME="sharkl5Pro"
+CONFIG_MALI_REAL_HW=y
