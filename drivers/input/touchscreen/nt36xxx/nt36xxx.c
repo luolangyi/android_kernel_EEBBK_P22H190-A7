@@ -1231,6 +1231,12 @@ static int8_t nvt_ts_check_chip_ver_trim(void)
 	}
 
 out:
+	if (ret != 0) {
+		NVT_ERR("chip id not in table, fallback to NT36525 mmap (log-only)\n");
+		ts->mmap = &NT36525_memory_map;
+		ts->carrier_system = NT36525_hw_info.carrier_system;
+		ret = 0;
+	}
 	return ret;
 }
 
@@ -1695,6 +1701,11 @@ static int32_t nvt_ts_remove(struct i2c_client *client)
 static void nvt_ts_shutdown(struct i2c_client *client)
 {
 	NVT_LOG("Shutdown driver...\n");
+
+	if (!ts) {
+		NVT_ERR("ts is NULL, skip shutdown\n");
+		return;
+	}
 
 	nvt_irq_enable(false);
 
